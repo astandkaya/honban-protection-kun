@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>設定ページ</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <h1>まもる君だよ！！</h1>
+
+  <h2 id="site">設定ページ</h2>
+  <p>
+    <input type="checkbox" id="prod-checkbox">
+    <label for="prod-checkbox">本番</label>
+  </p>
+  <p>
+    <input type="checkbox" id="stg-checkbox">
+    <label for="stg-checkbox">ステージング</label>
+  </p>
+  
+  <h2>共通設定</h2>
+  <ul>
+    <li>
+      <label for="obi-size">帯サイズ（px）：</label>
+      <input type="number" class="common-input" id="obi-size" maxlength="5">
+    </li>
+    <li>
+      <label for="obi-color-prod">帯色（本番）：</label>
+      <input type="color" class="common-input" id="obi-color-prod">
+    </li>
+    <li>
+      <label for="obi-color-stg">帯色（ステージング）：</label>
+      <input type="color" class="common-input" id="obi-color-stg">
+    </li>
+  </ul>
+  
+  <div id="mamorukun-container">
+    <input type="checkbox" class="common-input" id="mamorukun-destroy">
+    <label for="mamorukun-destroy">まもる君を消す</label>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

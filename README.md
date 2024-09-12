@@ -1,2 +1,15 @@
-# honban-protection-kun
-honban mamottekureru kun
+# 本番まもる君
+
+## 概要
+
+登録したページの画面上部に注意を促す帯を表示するChrome拡張機能です。
+
+## 操作方法
+
+1. 本番環境に指定したいページを開く
+2. Chrome拡張アイコンのポップアップでチェックボックスにチェックをつける
+3. ページを再表示するとページ上部に帯が表示されるようになる
+
+## イメージ
+
+![image](https://github.com/user-attachments/assets/19c461e9-0b08-41ae-9b1a-70d3133953c3)
