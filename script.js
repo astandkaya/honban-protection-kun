@@ -20,63 +20,48 @@ async function fetchCommonData() {
     });
 }
 
+function setCSSVariable(name, value) {
+    document.documentElement.style.setProperty(name, value);
+};
+
 (async () => {
+    // ドメインに対応した登録済みデータの取得
     const domain = (new URL(window.location.href)).hostname;
-    
-    const data_domain = await fetchDomainData(domain);
-    const data_common = await fetchCommonData();
+    const [data_domain, data_common] = await Promise.all([fetchDomainData(domain), fetchCommonData()]);
 
-    const obi = document.createElement('div');
-
-    // 基本スタイル
-    obi.style.position = 'fixed';
-    obi.style.top = 0;
-    obi.style.left = 0;
-    obi.style.right = 0;
-    obi.style.color = '#000000';
-    obi.style.zIndex = 999999;
-    obi.style.textAlign = 'center';
-    obi.style.pointerEvents = 'none';
-    obi.style.opacity = 1;
-    obi.style.transition = 'opacity 0.1s ease-in-out';
-
-    // 設定
+    // CSS変数の設定
     const height = data_common?.obi_size || 35;
-    obi.style.height = height + 'px';
-    obi.style.lineHeight = height + 'px';
+    setCSSVariable('--protection-kun-obi-size', `${height}px`);
+    setCSSVariable('--protection-kun-color-prod', data_common?.obi_color_prod);
+    setCSSVariable('--protection-kun-color-stg', data_common?.obi_color_stg);
+    // setCSSVariable('--protection-kun-text-color-prod', data_common?.obi_text_color_prod);
+    // setCSSVariable('--protection-kun-text-color-stg', data_common?.obi_text_color_stg);
 
-    // ドメインごと分岐
-    if (data_domain?.prod_checked === true) {
-        obi.style.backgroundColor = data_common?.obi_color_prod ?? '#ff0000';
-        obi.innerHTML = data_common?.mamorukun_destroy ? '本番環境' : 'まもる君 「本番環境だよ!」';
-    }
-    if (data_domain?.stg_checked === true) {
-        obi.style.backgroundColor = data_common?.obi_color_stg ?? '#00ff00';
-        obi.innerHTML = data_common?.mamorukun_destroy ? 'ステージング環境' : 'まもる君 「ステージング環境だよ!」';
+    // 環境の判定
+    const environment = data_domain?.prod_checked ? 'prod' 
+        : data_domain?.stg_checked ? 'stg' 
+        : null;
+
+    // 帯の要素生成
+    const obi = document.createElement('div');
+    obi.id = 'protection-kun-obi';
+    if (environment) {
+        obi.setAttribute('data-type', environment);
+        obi.innerHTML = `まもる君 「${environment === 'prod' ? '本番環境' : 'ステージング環境'}だよ!」`;
+        if (data_common?.mamorukun_destroy) {
+            obi.innerHTML = environment === 'prod' ? '本番環境' : 'ステージング環境';
+        }
     }
 
-    // 閉じるボタン
+    // 閉じるボタンの生成
     const close_button = document.createElement('button');
-    close_button.textContent = '閉じる';
-    close_button.style.pointerEvents = 'auto';
-    close_button.style.cursor = 'pointer';
-    close_button.style.background = 'rgba(0 0 0 / 0.3)';
-    close_button.style.border = 'none';
-    close_button.style.color = '#000000';
-    close_button.style.padding = '4px 10px';
-    close_button.style.borderRadius = '8px';
-    close_button.addEventListener('click', function() {
-        obi.style.display = 'none';
-    });
+    close_button.id = 'protection-kun-obi-close-button';
+    close_button.innerHTML = '閉じる';
+    close_button.addEventListener('click', () => obi.style.display = 'none');
     obi.appendChild(close_button);
 
     document.body.appendChild(obi);
 
-    document.addEventListener('mousemove', function(e) {
-        if (e.clientY < height) {
-            obi.style.opacity = 0.3;
-        } else {
-            obi.style.opacity = 1;
-        }
-    });
+    // マウスオーバー時の半透明化
+    document.addEventListener('mousemove', e => obi.style.opacity = e.clientY < height ? 0.3 : 1);
 })();

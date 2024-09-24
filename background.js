@@ -6,6 +6,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
             chrome.storage.sync.get(domain, data => {
                 if (data[domain]) {
+                    // css読み込み
+                    chrome.scripting.insertCSS({
+                        target: { tabId: tabId },
+                        files: ['style.css']
+                    });
+                    // js読み込み
                     chrome.scripting.executeScript({
                         target: { tabId: tabId },
                         files: ['script.js']
