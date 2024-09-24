@@ -26,42 +26,57 @@ async function fetchCommonData() {
     const data_domain = await fetchDomainData(domain);
     const data_common = await fetchCommonData();
 
-    const div = document.createElement('div');
+    const obi = document.createElement('div');
 
     // 基本スタイル
-    div.style.position = 'fixed';
-    div.style.top = 0;
-    div.style.left = 0;
-    div.style.right = 0;
-    div.style.color = '#000000';
-    div.style.zIndex = 999999;
-    div.style.textAlign = 'center';
-    div.style.pointerEvents = 'none';
-    div.style.opacity = 1;
-    div.style.transition = 'opacity 0.1s ease-in-out';
+    obi.style.position = 'fixed';
+    obi.style.top = 0;
+    obi.style.left = 0;
+    obi.style.right = 0;
+    obi.style.color = '#000000';
+    obi.style.zIndex = 999999;
+    obi.style.textAlign = 'center';
+    obi.style.pointerEvents = 'none';
+    obi.style.opacity = 1;
+    obi.style.transition = 'opacity 0.1s ease-in-out';
 
     // 設定
     const height = data_common?.obi_size || 35;
-    div.style.height = height + 'px';
-    div.style.lineHeight = height + 'px';
+    obi.style.height = height + 'px';
+    obi.style.lineHeight = height + 'px';
 
     // ドメインごと分岐
     if (data_domain?.prod_checked === true) {
-        div.style.backgroundColor = data_common?.obi_color_prod ?? '#ff0000';
-        div.innerHTML = data_common?.mamorukun_destroy ? '本番環境' : 'まもる君 「本番環境だよ!」';
+        obi.style.backgroundColor = data_common?.obi_color_prod ?? '#ff0000';
+        obi.innerHTML = data_common?.mamorukun_destroy ? '本番環境' : 'まもる君 「本番環境だよ!」';
     }
     if (data_domain?.stg_checked === true) {
-        div.style.backgroundColor = data_common?.obi_color_stg ?? '#00ff00';
-        div.innerHTML = data_common?.mamorukun_destroy ? 'ステージング環境' : 'まもる君 「ステージング環境だよ!」';
+        obi.style.backgroundColor = data_common?.obi_color_stg ?? '#00ff00';
+        obi.innerHTML = data_common?.mamorukun_destroy ? 'ステージング環境' : 'まもる君 「ステージング環境だよ!」';
     }
 
-    document.body.appendChild(div);
+    // 閉じるボタン
+    const close_button = document.createElement('button');
+    close_button.textContent = '閉じる';
+    close_button.style.pointerEvents = 'auto';
+    close_button.style.cursor = 'pointer';
+    close_button.style.background = 'rgba(0 0 0 / 0.3)';
+    close_button.style.border = 'none';
+    close_button.style.color = '#000000';
+    close_button.style.padding = '4px 10px';
+    close_button.style.borderRadius = '8px';
+    close_button.addEventListener('click', function() {
+        obi.style.display = 'none';
+    });
+    obi.appendChild(close_button);
+
+    document.body.appendChild(obi);
 
     document.addEventListener('mousemove', function(e) {
         if (e.clientY < height) {
-            div.style.opacity = 0.3;
+            obi.style.opacity = 0.3;
         } else {
-            div.style.opacity = 1;
+            obi.style.opacity = 1;
         }
     });
 })();
