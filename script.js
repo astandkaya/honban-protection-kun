@@ -51,16 +51,19 @@ function setCSSVariable(name, value) {
         if (data_common?.mamorukun_destroy) {
             obi.innerHTML = environment === 'prod' ? '本番環境' : 'ステージング環境';
         }
+
+        document.body.appendChild(obi);
+
+        // 閉じるボタンの生成
+        const close_button = document.createElement('button');
+        close_button.id = 'protection-kun-obi-close-button';
+        close_button.innerHTML = '×';
+        close_button.addEventListener('click', () => {
+            obi.style.display = 'none';
+            close_button.style.display = 'none';
+        });
+        document.body.appendChild(close_button);
     }
-
-    // 閉じるボタンの生成
-    const close_button = document.createElement('button');
-    close_button.id = 'protection-kun-obi-close-button';
-    close_button.innerHTML = '閉じる';
-    close_button.addEventListener('click', () => obi.style.display = 'none');
-    obi.appendChild(close_button);
-
-    document.body.appendChild(obi);
 
     // マウスオーバー時の半透明化
     document.addEventListener('mousemove', e => obi.style.opacity = e.clientY < height ? 0.3 : 1);
