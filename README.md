@@ -1,5 +1,9 @@
 # 本番まもる君
 
+## インストール
+
+https://chromewebstore.google.com/detail/本番まもる君/opkkcclbnelllmnacpmckmafflbcaoic
+
 ## 概要
 
 登録したページの画面上部に注意を促す帯を表示するChrome拡張機能です。
