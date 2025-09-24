@@ -9,4 +9,14 @@ export const enviroments = Object.freeze([
         "color": "#00ff00",
         "text": "ステージング環境"
     },
+    {
+        "env": "test",
+        "color": "#ffff00",
+        "text": "テスト環境"
+    },
+    {
+        "env": "local",
+        "color": "#00ffff",
+        "text": "ローカル環境"
+    },
 ]);
