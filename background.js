@@ -9,12 +9,12 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
                     // css読み込み
                     chrome.scripting.insertCSS({
                         target: { tabId: tabId },
-                        files: ['style.css']
+                        files: ['./scripting/style.css']
                     });
                     // js読み込み
                     chrome.scripting.executeScript({
                         target: { tabId: tabId },
-                        files: ['script.js']
+                        files: ['./scripting/script.js']
                     });
                 }
             });
