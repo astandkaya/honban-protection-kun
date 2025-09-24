@@ -42,7 +42,11 @@ chrome.tabs.query({active: true, currentWindow: true}, tabs => {
     enviroments.forEach(env => {
         checkboxes[env.env].addEventListener('change', () => {
             //他のチェックボックスを外す
-            enviroments.forEach(otherEnv => checkboxes[otherEnv.env].checked = otherEnv.env === env.env);
+            enviroments.forEach(otherEnv => {
+                if (otherEnv.env !== env.env) {
+                    checkboxes[otherEnv.env].checked = false;
+                }
+            });
 
             // 状態を保存
             let setting = {};
