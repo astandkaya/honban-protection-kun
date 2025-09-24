@@ -14,16 +14,6 @@
     transition: opacity 0.1s ease-in-out;
 }
 
-#protection-kun-obi[data-type="prod"] {
-    background-color: var(--protection-kun-color-prod, #ff0000);
-    color: var(--protection-kun-text-color-prod, #000000);
-}
-
-#protection-kun-obi[data-type="stg"] {
-    background-color: var(--protection-kun-color-stg, #00ff00);
-    color: var(--protection-kun-text-color-stg, #000000);
-}
-
 #protection-kun-obi-close-button {
     font-family: Arial, sans-serif !important;
     position: fixed;

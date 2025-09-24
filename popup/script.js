@@ -1,53 +1,80 @@
-const prod_checkbox = document.getElementById('prod-checkbox');
-const stg_checkbox = document.getElementById('stg-checkbox');
+// データセット
+import { enviroments } from '../shared/enviroments.js';
 
+// エレメント作成
+let checkboxes = [];
+enviroments.forEach(env => {
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = `${env.env}-checkbox`;
+
+    const label = document.createElement('label');
+    label.htmlFor = `${env.env}-checkbox`;
+    label.innerText = env.text;
+
+    const colorInput = document.createElement('input');
+    colorInput.type = 'color';
+    colorInput.id = `obi-color-${env.env}`;
+    colorInput.className = 'common-input';
+    colorInput.value = env.color;
+
+    const li = document.createElement('li');
+    li.appendChild(checkbox);
+    li.appendChild(label);
+    li.appendChild(colorInput);
+    document.getElementById('enviroments').appendChild(li);
+
+    checkboxes[env.env] = checkbox;
+});
+
+// 現在のタブのURLを取得してドメインを表示、設定を読み込み
 chrome.tabs.query({active: true, currentWindow: true}, tabs => {
     let url = new URL(tabs[0].url);
     let domain = url.hostname;
     document.getElementById('site').innerText = domain;
     
     chrome.storage.sync.get(domain, data => {
-        prod_checkbox.checked = !!data[domain].prod_checked;
-        stg_checkbox.checked = !!data[domain].stg_checked; 
-    });
-    
-    prod_checkbox.addEventListener('change', () => {
-        chrome.storage.sync.set({
-            [domain]: {
-                prod_checked: prod_checkbox.checked,
-                stg_checked: false
-            }
+        enviroments.forEach(env => {
+            checkboxes[env.env].checked = !!data[domain]?.[`${env.env}_checked`];
         });
-        stg_checkbox.checked = false;
     });
-    
-    stg_checkbox.addEventListener('change', () => {
-        chrome.storage.sync.set({
-            [domain]: {
-                prod_checked: false,
-                stg_checked: stg_checkbox.checked
-            }
+
+    enviroments.forEach(env => {
+        checkboxes[env.env].addEventListener('change', () => {
+            //他のチェックボックスを外す
+            enviroments.forEach(otherEnv => checkboxes[otherEnv.env].checked = otherEnv.env === env.env);
+
+            // 状態を保存
+            let setting = {};
+            enviroments.forEach(env => {
+                setting[`${env.env}_checked`] = checkboxes[env.env].checked;
+            });
+            chrome.storage.sync.set({
+                [domain]: setting
+            });
         });
-        prod_checkbox.checked = false;
     });
 
     // 共通設定
     chrome.storage.sync.get('common', data => {
         document.getElementById('obi-size').value = data.common?.obi_size || 35;
-        document.getElementById('obi-color-prod').value = data.common?.obi_color_prod || '#ff0000';
-        document.getElementById('obi-color-stg').value = data.common?.obi_color_stg || '#00ff00';
+        enviroments.forEach(env => {
+            document.getElementById(`obi-color-${env.env}`).value = data.common?.[`obi_color_${env.env}`] || env.color;
+        });
         document.getElementById('mamorukun-destroy').checked = data.common?.mamorukun_destroy || false;
     });
 
     document.querySelectorAll('.common-input').forEach(input => {
         input.addEventListener('change', () => {
+            let commonSetting = {
+                obi_size: document.getElementById('obi-size').value,
+                mamorukun_destroy: document.getElementById('mamorukun-destroy').checked
+            };
+            enviroments.forEach(env => {
+                commonSetting[`obi_color_${env.env}`] = document.getElementById(`obi-color-${env.env}`).value;
+            });
             chrome.storage.sync.set({
-                common: {
-                    obi_size: document.getElementById('obi-size').value,
-                    obi_color_prod: document.getElementById('obi-color-prod').value,
-                    obi_color_stg: document.getElementById('obi-color-stg').value,
-                    mamorukun_destroy: document.getElementById('mamorukun-destroy').checked
-                }
+                common: commonSetting
             });
         });
     });

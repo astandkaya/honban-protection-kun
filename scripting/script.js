@@ -25,32 +25,44 @@ function setCSSVariable(name, value) {
 };
 
 (async () => {
+    const { enviroments } = await import(chrome.runtime.getURL('shared/enviroments.js'));
+
     // ドメインに対応した登録済みデータの取得
     const domain = (new URL(window.location.href)).hostname;
     const [data_domain, data_common] = await Promise.all([fetchDomainData(domain), fetchCommonData()]);
 
+    // 環境の判定
+    const environment = enviroments.find(env => data_domain?.[`${env.env}_checked`])?.env || null;
+
     // CSS変数の設定
     const height = data_common?.obi_size || 35;
     setCSSVariable('--protection-kun-obi-size', `${height}px`);
-    setCSSVariable('--protection-kun-color-prod', data_common?.obi_color_prod);
-    setCSSVariable('--protection-kun-color-stg', data_common?.obi_color_stg);
-    // setCSSVariable('--protection-kun-text-color-prod', data_common?.obi_text_color_prod);
-    // setCSSVariable('--protection-kun-text-color-stg', data_common?.obi_text_color_stg);
+    enviroments.forEach(({env, color}) => {
+        setCSSVariable(`--protection-kun-color-${env}`, data_common?.[`obi_color_${env}`] ?? color);
+        setCSSVariable(`--protection-kun-text-color-${env}`, data_common?.[`obi_text_color_${env}`] ?? '#000000');
+    });
 
-    // 環境の判定
-    const environment = data_domain?.prod_checked ? 'prod' 
-        : data_domain?.stg_checked ? 'stg' 
-        : null;
+    // スタイルの追加
+    const style = document.createElement('style');
+    style.innerHTML = enviroments.map(({env, color}) => `
+        #protection-kun-obi[data-type="${env}"] {
+            background-color: var(--protection-kun-color-${env});
+            color: var(--protection-kun-text-color-${env}, #000000);
+        }
+    `).join('\n');
+    document.head.appendChild(style);
 
     // 帯の要素生成
     const obi = document.createElement('div');
     obi.id = 'protection-kun-obi';
     if (environment) {
-        obi.setAttribute('data-type', environment);
-        obi.innerHTML = `まもる君 「${environment === 'prod' ? '本番環境' : 'ステージング環境'}だよ!」`;
+        const environment_text = enviroments.find(e => e.env === environment)?.text || '';
+        obi.innerHTML = `まもる君 「${environment_text}だよ！」`;
         if (data_common?.mamorukun_destroy) {
-            obi.innerHTML = environment === 'prod' ? '本番環境' : 'ステージング環境';
+            obi.innerHTML = environment_text;
         }
+
+        obi.setAttribute('data-type', environment);
 
         document.body.appendChild(obi);
 

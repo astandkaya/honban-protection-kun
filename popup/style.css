@@ -35,7 +35,18 @@ ul {
   max-width: 400px;
 }
 
-li {
+#enviroments > li {
+  background-color: white;
+  padding: 8px 20px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#common-settings > li {
   background-color: white;
   padding: 12px 20px;
   margin-bottom: 10px;
