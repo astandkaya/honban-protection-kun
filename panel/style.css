@@ -1,0 +1,110 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0 10px;
+}
+
+h1 {
+    color: #4caf50;
+    font-size: 2em;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.5em;
+    border-left: 5px solid #ddd;
+    border-bottom: 2px solid #ddd;
+    padding-left: 10px;
+    padding-bottom: 2px;
+    margin-bottom: 20px;
+}
+
+li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+.center {
+    text-align: center;
+}
+
+#enviroments {
+    width: 500px;
+}
+
+#enviroments li {
+    background-color: white;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#enviroments li > * {
+    margin: 0 5px;
+}
+#enviroments li input[type="text"] {
+    width: 150px;
+    border-radius: 5px 0 0 5px;
+}
+#enviroments li button.save {
+    border-radius: 0 5px 5px 0;
+}
+#enviroments li code {
+    width: 60px;
+}
+#enviroments li input[type="color"] {
+    width: 60px;
+}
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #e0e0e0;
+    padding: 2px 4px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+input[type="text"] {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5px;
+    border: 1px solid #ddd;
+}
+input[type="color"] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+button {
+    padding: 5px 10px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button.save {
+    background-color: #4caf50;
+}
+button.delete {
+    background-color: #f44336;
+}
+button.add-enviroment {
+    width: 100%;
+    border: 2px dashed #888;
+    background-color: none;
+    color: #333;
+}

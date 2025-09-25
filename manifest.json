@@ -2,10 +2,13 @@
     "manifest_version": 3,
     "name": "本番まもる君",
     "version": "1.0.1",
-    "permissions": ["activeTab", "scripting", "storage"],
+    "permissions": ["activeTab", "scripting", "storage", "sidePanel"],
     "host_permissions": [
         "*://*/*"
     ],
+    "side_panel": {
+        "default_path": "panel/main.html"
+    },
     "action": {
         "default_popup": "popup/main.html",
         "default_icon": {

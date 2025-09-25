@@ -38,8 +38,9 @@ function setCSSVariable(name, value) {
     const height = data_common?.obi_size || 35;
     setCSSVariable('--protection-kun-obi-size', `${height}px`);
     enviroments.forEach(({env, color}) => {
-        setCSSVariable(`--protection-kun-color-${env}`, data_common?.[`obi_color_${env}`] ?? color);
-        setCSSVariable(`--protection-kun-text-color-${env}`, data_common?.[`obi_text_color_${env}`] ?? '#000000');
+        const text_color = (parseInt(color.replace('#', ''), 16) > 0xffffff / 2) ? '#000000' : '#ffffff';
+        setCSSVariable(`--protection-kun-color-${env}`, color);
+        setCSSVariable(`--protection-kun-text-color-${env}`, text_color);
     });
 
     // スタイルの追加

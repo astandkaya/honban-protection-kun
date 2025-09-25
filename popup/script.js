@@ -12,16 +12,12 @@ enviroments.forEach(env => {
     label.htmlFor = `${env.env}-checkbox`;
     label.innerText = env.text;
 
-    const colorInput = document.createElement('input');
-    colorInput.type = 'color';
-    colorInput.id = `obi-color-${env.env}`;
-    colorInput.className = 'common-input';
-    colorInput.value = env.color;
-
     const li = document.createElement('li');
+    li.style.backgroundImage = `linear-gradient(135deg, #ffffff 85%, ${env.color} 90% 100%)`;
+
     li.appendChild(checkbox);
     li.appendChild(label);
-    li.appendChild(colorInput);
+
     document.getElementById('enviroments').appendChild(li);
 
     checkboxes[env.env] = checkbox;
@@ -62,23 +58,14 @@ chrome.tabs.query({active: true, currentWindow: true}, tabs => {
     // 共通設定
     chrome.storage.sync.get('common', data => {
         document.getElementById('obi-size').value = data.common?.obi_size || 35;
-        enviroments.forEach(env => {
-            document.getElementById(`obi-color-${env.env}`).value = data.common?.[`obi_color_${env.env}`] || env.color;
-        });
         document.getElementById('mamorukun-destroy').checked = data.common?.mamorukun_destroy || false;
     });
 
     document.querySelectorAll('.common-input').forEach(input => {
         input.addEventListener('change', () => {
-            let commonSetting = {
+            common.storage.sync.set({
                 obi_size: document.getElementById('obi-size').value,
                 mamorukun_destroy: document.getElementById('mamorukun-destroy').checked
-            };
-            enviroments.forEach(env => {
-                commonSetting[`obi_color_${env.env}`] = document.getElementById(`obi-color-${env.env}`).value;
-            });
-            chrome.storage.sync.set({
-                common: commonSetting
             });
         });
     });
