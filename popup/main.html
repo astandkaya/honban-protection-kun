@@ -2,23 +2,57 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>設定ページ</title>
-  <link rel="stylesheet" href="./style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本番まもる君</title>
+
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    input[type="number"]{
+      width: 120px;
+    }
+
+    #enviroments {
+      width: 300px;
+    }
+
+    #mamorukun-container {
+      max-width: 400px;
+      padding: 12px 20px;
+      margin-top: 100px;
+      background-color: white;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      opacity: 0.2;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    #mamorukun-container:hover {
+      opacity: 1;
+      transform: translateY(-5px);
+    }
+  </style>
 </head>
 <body>
   <h1>まもる君だよ！！</h1>
 
-  <h2 id="site">設定ページ</h2>
-  <ul id="enviroments">
-  </ul>
-  
-  <h2>共通設定</h2>
-  <ul id="common-settings">
-    <li>
-      <label for="obi-size">帯サイズ（px）：</label>
-      <input type="number" class="common-input" id="obi-size" maxlength="5">
-    </li>
-  </ul>
+  <div id="enviroments" class="conteiner">
+    <h2 id="site">設定ページ</h2>
+    <ul>
+    </ul>
+  </div>
+
+  <div id="common-settings" class="conteiner">
+    <h2>共通設定</h2>
+    <ul>
+      <li>
+        <label for="obi-size">帯サイズ（px）：</label>
+        <input type="number" class="common-input" id="obi-size" maxlength="5">
+      </li>
+    </ul>
+  </div>
 
   <div class="center">
     <button class="settings">その他の設定</button>

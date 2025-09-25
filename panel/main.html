@@ -4,12 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>本番まもる君</title>
-  <link rel="stylesheet" href="./style.css">
+
+  <link rel="stylesheet" href="../shared/style.css">
+  <style>
+    #enviroments {
+      width: 500px;
+    }
+    #enviroments li input[type="text"] {
+      width: 150px;
+      border-radius: 5px 0 0 5px;
+    }
+    #enviroments li button.save {
+      border-radius: 0 5px 5px 0;
+    }
+    #enviroments li code {
+      width: 60px;
+    }
+    #enviroments li input[type="color"] {
+      width: 60px;
+    }
+  </style>
 </head>
 <body>
   <h1>まもる君だよ！！</h1>
 
-  <div id="enviroments">
+  <div id="enviroments" class="conteiner">
     <h2>
       環境一覧
     </h2>

@@ -3,7 +3,6 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   padding: 0 10px;
-  min-width: 300px;
 }
 
 h1 {
@@ -12,7 +11,6 @@ h1 {
   margin-bottom: 10px;
   text-align: center;
 }
-
 h2 {
   color: #333;
   font-size: 1.5em;
@@ -23,62 +21,87 @@ h2 {
   margin-bottom: 20px;
 }
 
-p, li {
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
   margin-bottom: 15px;
   display: flex;
   align-items: center;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  max-width: 400px;
-}
-
-.center {
-    text-align: center;
-}
-
-#enviroments > li {
-  background-color: white;
-  padding: 8px 20px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+dialog {
+  min-width: 320px;
+  border: none;
   border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px 20px 10px 20px;
+  background-color: white;
+}
+dialog menu {
   display: flex;
-  justify-content: space-between;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-#common-settings > li {
-  background-color: white;
-  padding: 12px 20px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+button {
+  padding: 5px 10px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button.save {
+  background-color: #4caf50;
+}
+button.delete {
+  background-color: #f44336;
+}
+button.cancel {
+  background-color: #888;
+}
+button.add-enviroment {
+  width: 100%;
+  border: 2px dashed #888;
+  background-color: none;
+  color: #333;
+}
+button.settings {
+  background-color: #4caf50;
+}
+
+code {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #e0e0e0;
+  padding: 2px 4px;
+  border-radius: 4px;
+  text-align: center;
 }
 
 label {
   font-size: 1em;
 }
-
-input[type="number"] {
-  width: 100px;
-}
-
-input[type="number"], input[type="color"] {
+input[type="text"] {
+  font-family: 'Courier New', Courier, monospace;
   padding: 5px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
-
+input[type="color"] {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+input[type="number"]{
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
 input[type="checkbox"] {
   display: none;
 }
-
 input[type="checkbox"] + label {
   position: relative;
   padding-left: 35px;
@@ -87,7 +110,6 @@ input[type="checkbox"] + label {
   display: flex;
   align-items: center;
 }
-
 input[type="checkbox"] + label:before {
   content: '';
   position: absolute;
@@ -100,12 +122,10 @@ input[type="checkbox"] + label:before {
   border-radius: 4px;
   background-color: #fff;
 }
-
 input[type="checkbox"]:checked + label:before {
   background-color: #4caf50;
   border-color: #4caf50;
 }
-
 input[type="checkbox"] + label:after {
   content: '';
   position: absolute;
@@ -119,38 +139,22 @@ input[type="checkbox"] + label:after {
   opacity: 0;
   transition: opacity 0.2s;
 }
-
 input[type="checkbox"]:checked + label:after {
   opacity: 1;
 }
 
-button {
-    padding: 5px 10px;
-    border: none;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-button.settings {
-    background-color: #4caf50;
+.center {
+  text-align: center;
 }
 
-#mamorukun-container {
-  max-width: 400px;
-  padding: 12px 20px;
-  margin-top: 100px;
+.conteiner li {
   background-color: white;
-  border-radius: 10px;
+  padding: 12px 20px;
+  margin-bottom: 10px;
   border: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  opacity: 0.2;
-  transition: opacity 0.2s, transform 0.2s;
-}
-
-#mamorukun-container:hover {
-  opacity: 1;
-  transform: translateY(-5px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

@@ -13,7 +13,7 @@ enviroments.forEach(env => {
     label.innerText = env.text;
 
     const li = document.createElement('li');
-    li.style.backgroundImage = `linear-gradient(135deg, #ffffff 85%, ${env.color} 90% 100%)`;
+    li.style.backgroundImage = `linear-gradient(135deg, #ffffff 65%, ${env.color} 90% 100%)`;
 
     li.appendChild(checkbox);
     li.appendChild(label);
