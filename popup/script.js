@@ -70,3 +70,10 @@ chrome.tabs.query({active: true, currentWindow: true}, tabs => {
         });
     });
 });
+
+// 設定
+document.querySelector('.settings').addEventListener('click', async () => {
+    const w = await chrome.windows.getCurrent();
+    await chrome.sidePanel.open({ windowId: w.id });
+    window.close();
+});
